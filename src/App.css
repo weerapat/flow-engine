@@ -46,5 +46,6 @@ body {
   -webkit-box-shadow: 0 2px 0.5rem rgba(90, 90, 90, 0.3);
           box-shadow: 0 2px 0.5rem rgba(90, 90, 90, 0.3);
   padding: 15px;
+  margin-bottom: 20px;
 }
 
