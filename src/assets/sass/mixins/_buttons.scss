@@ -1,0 +1,23 @@
+// Button variants
+
+@mixin button-variant($color, $background, $border) {
+  color: $color;
+  cursor: pointer;
+  background-color: $background;
+  border: 1px solid $border;
+  border-radius: 5px;
+  padding: 6px 15px;
+
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: darken($background, 10%);
+    border-color: darken($border, 25%);
+  }
+  &:hover,
+  &:active {
+    color: $color;
+    background-color: darken($background, 10%);
+    border-color: darken($border, 12%);
+  }
+}

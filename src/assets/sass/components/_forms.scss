@@ -1,0 +1,21 @@
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.Form__group {
+  margin-bottom: 15px;
+}
+.Form__control {
+  display: block;
+  width: 100%;
+  height: 20px;
+  padding: 5px 10px;
+  color: $input-color;
+  background-color: $input-bg;
+  border: 1px solid $input-border;
+}
+textarea.Form__control {
+  height: auto;
+}
