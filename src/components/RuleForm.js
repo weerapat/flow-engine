@@ -123,7 +123,7 @@ class RuleForm extends Component {
 
           <button
             type="submit"
-            className="App__button"
+            className="App__button--submit"
           >Add new rule
           </button>
         </form>

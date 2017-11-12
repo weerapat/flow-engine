@@ -7,11 +7,9 @@ class RuleList extends Component {
     return (
       <div>
         <h2>List of rules</h2>
-        <div className="App__panel">
-          {this.props.rules.map(rule => (
-            <Rule key={rule.id} {...rule} onRemove={() => this.props.onRuleRemove(rule)} />
-          ))}
-        </div>
+        {this.props.rules.map(rule => (
+          <Rule key={rule.id} {...rule} onRemove={() => this.props.onRuleRemove(rule)} />
+        ))}
       </div>
     );
   }

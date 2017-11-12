@@ -51,15 +51,22 @@ class FlowExecute extends Component {
             />
           </div>
           <div className="Text--error">{this.state.error}</div>
-          <button onClick={this.handleExecute.bind(this)}>Execute Flow</button>
+          <button
+            className="App__button"
+            onClick={this.handleExecute.bind(this)}>
+            Execute Flow
+          </button>
+          <h2>Results</h2>
+          <ul>
           {
-            this.props.flowResults.map((result) => <div key={result.title}>
+            this.props.flowResults.map((result) => <li key={result.title}>
               {result.title}&nbsp;&nbsp;
               <span className={result.status === 'passed' ? 'Text--success' : 'Text--error'}>
                 {result.status}
               </span>
-            </div>)
+            </li>)
           }
+          </ul>
         </div>
       </div>
     );
