@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class RuleForm extends Component {
   constructor(props) {
@@ -18,36 +19,37 @@ class RuleForm extends Component {
 
   handleInputChange(e) {
     let newState = {};
-    let fieldName = e.target.name;
+    let inputName = e.target.name;
     let value = e.target.value;
 
-    newState[fieldName] = value;
+    newState[inputName] = value;
 
     this.setState(newState,
-      () => { this.validateField(fieldName, value) });
+      () => { this.validateField(inputName, value) });
   };
 
-  validateField(fieldName, value) {
+  validateField(inputName, value) {
     let fieldValidationErrors = this.state.formErrors;
 
-    console.log(`${fieldName} + ${value}`);
+    console.log(`${inputName} + ${value}`);
 
-    switch(fieldName) {
+    switch(inputName) {
       default:
         break;
     }
     this.setState({formErrors: fieldValidationErrors});
   }
 
-  submit() {
-    alert('hi');
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.onFormSubmit();
   }
 
   render() {
     return (
       <div className="App__panel">
         <h2>Form</h2>
-        <form>
+        <form onSubmit={this.handleSubmit.bind(this)} >
           <div className="Form__group">
             <label htmlFor="rule-title">Rule title</label>
             <input
@@ -104,9 +106,8 @@ class RuleForm extends Component {
           </div>
 
           <button
-            type="button"
+            type="submit"
             className="App__button"
-            onClick={this.submit.bind(this)}
           >Add new rule
           </button>
         </form>
@@ -114,5 +115,9 @@ class RuleForm extends Component {
     );
   }
 }
+
+RuleForm.propTypes = {
+  onFormSubmit: PropTypes.func.isRequired
+};
 
 export default RuleForm;
