@@ -1,4 +1,3 @@
-// @Todo Extract store layer if possible
 class FlowStore
 {
   constructor() {

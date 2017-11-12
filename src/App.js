@@ -14,9 +14,6 @@ class FlowEngineApp extends Component {
     this.state = {
       nextRuleId : this.FlowStore.getNextRuleId(),
       rules : this.FlowStore.getRules(),
-      ruleErrors : {
-        'message' : 'id is duplicated'
-      },
       flowResults : []
     };
   }
