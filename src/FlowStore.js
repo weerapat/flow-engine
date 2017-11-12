@@ -127,7 +127,7 @@ class FlowStore
             return obj.color === 'blue' && obj.size === 12;
           }`,
           true_id: null,
-          false_id: null
+          false_id: 3
         },
         {
           id: 3,
