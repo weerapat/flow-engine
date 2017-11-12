@@ -9,8 +9,9 @@ label {
 }
 .Form__control {
   display: block;
+  font-size: $font-size-base;
   width: 100%;
-  height: 20px;
+  height: 30px;
   padding: 5px 10px;
   color: $input-color;
   background-color: $input-bg;

@@ -1,0 +1,28 @@
+// Text
+
+.Text {
+  &--error {
+    color: $color-danger;
+  }
+  &--success {
+    color: $color-success;
+  }
+}
+
+label {
+  font-size: 18px;
+}
+
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: 20px;
+  li {
+    margin-bottom: 10px;
+  }
+
+  ul,
+  ol {
+    margin-bottom: 0;
+  }
+}

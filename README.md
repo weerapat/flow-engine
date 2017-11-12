@@ -4,6 +4,7 @@
 
 ```
 $ yarn install
+$ yarn build-css
 ```
 
 ## Start application

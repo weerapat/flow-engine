@@ -3,8 +3,9 @@
 @mixin button-variant($color, $background, $border) {
   color: $color;
   cursor: pointer;
+  font-size: 16px;
   background-color: $background;
-  border: 1px solid $border;
+  border: 1px solid transparent;
   border-radius: 5px;
   padding: 6px 15px;
 
