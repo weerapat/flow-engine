@@ -6,23 +6,22 @@ class RuleForm extends Component {
     super(props);
 
     this.state = {
-      fields : {
-        rule_id: '',
-        rule_title: '',
-        rule_body: {},
-        true_id: null,
-        false_id: null
+      fields: {
+        title: '',
+        body: '',
+        true_id: '',
+        false_id: ''
       },
       formErrors : {}
-    }
+    };
   }
 
   handleInputChange(e) {
-    let newState = {};
+    let newState = {fields : this.state.fields};
     let inputName = e.target.name;
     let value = e.target.value;
 
-    newState[inputName] = value;
+    newState.fields[inputName] = value;
 
     this.setState(newState,
       () => { this.validateField(inputName, value) });
@@ -40,9 +39,21 @@ class RuleForm extends Component {
     this.setState({formErrors: fieldValidationErrors});
   }
 
+  clearForm() {
+    this.setState({
+      fields: {
+        title: '',
+        body: '',
+        true_id: '',
+        false_id: ''
+      }
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onFormSubmit();
+    this.props.onFormSubmit(this.state.fields);
+    this.clearForm();
   }
 
   render() {
@@ -51,24 +62,17 @@ class RuleForm extends Component {
         <h2>Form</h2>
         <form onSubmit={this.handleSubmit.bind(this)} >
           <div className="Form__group">
+            <label htmlFor="rule-id">Rule id</label> : {this.props.nextRuleId}
+          </div>
+          <div className="Form__group">
             <label htmlFor="rule-title">Rule title</label>
             <input
               type="text"
               className="Form__control"
               id="rule-title"
-              name="rule_title"
+              name="title"
               placeholder="Rule Title"
-              onChange={this.handleInputChange.bind(this)}
-            />
-          </div>
-          <div className="Form__group">
-            <label htmlFor="rule-id">Rule id</label>
-            <input
-              type="text"
-              className="Form__control"
-              id="rule-id"
-              name="rule_id"
-              placeholder="Rule Id"
+              value={this.state.fields.title}
               onChange={this.handleInputChange.bind(this)}
             />
           </div>
@@ -77,8 +81,9 @@ class RuleForm extends Component {
             <textarea
               className="Form__control"
               id="rule-body"
-              name="rule_body"
+              name="body"
               rows="3"
+              value={this.state.fields.body}
               onChange={this.handleInputChange.bind(this)}
             />
           </div>
@@ -90,6 +95,7 @@ class RuleForm extends Component {
               id="rule-passed"
               name="true_id"
               placeholder="Rule id"
+              value={this.state.fields.true_id}
               onChange={this.handleInputChange.bind(this)}
             />
           </div>
@@ -101,6 +107,7 @@ class RuleForm extends Component {
               id="rule-failed"
               name="false_id"
               placeholder="Rule id"
+              value={this.state.fields.false_id}
               onChange={this.handleInputChange.bind(this)}
             />
           </div>

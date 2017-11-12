@@ -12,6 +12,7 @@ class FlowEngineApp extends Component {
 
     this.FlowStore = new FlowStore();
     this.state = {
+      nextRuleId : this.FlowStore.getNextRuleId(),
       rules : this.FlowStore.getRules(),
       ruleErrors : {
         'message' : 'id is duplicated'
@@ -19,8 +20,9 @@ class FlowEngineApp extends Component {
     };
   }
 
-  addRule() {
-    this.setState({rules : this.FlowStore.addRule()});
+  addRule(rule) {
+    this.setState({rules : this.FlowStore.addRule(rule)});
+    this.setState({nextRuleId : this.FlowStore.getNextRuleId()});
   }
 
   removeRule(rule) {
@@ -35,6 +37,7 @@ class FlowEngineApp extends Component {
             Flow Engine
           </h1>
           <RuleForm
+            nextRuleId={this.state.nextRuleId}
             onFormSubmit={this.addRule.bind(this)}
           />
           <RuleList
