@@ -50,10 +50,7 @@ class FlowStore
 
   removeRule(rule) {
     // @todo before delete check if this rule has relation with another rule first.
-
-    this.rules.splice(this.rules.indexOf(rule), 1);
-
-    return this.rules;
+    return this.rules.splice(this.rules.indexOf(rule), 1);
   }
 }
 

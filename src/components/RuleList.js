@@ -8,11 +8,7 @@ class RuleList extends Component {
     super(props);
     console.log(this.props)
   }
-
-  onTodoClick(id) {
-    alert('I will delete you soon' + id);
-  }
-
+  
   render() {
     return (
       <div className="App__panel">
