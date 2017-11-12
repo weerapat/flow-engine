@@ -8,7 +8,7 @@ class RuleList extends Component {
     super(props);
     console.log(this.props)
   }
-  
+
   render() {
     return (
       <div className="App__panel">
@@ -23,6 +23,7 @@ class RuleList extends Component {
 }
 
 RuleList.propTypes = {
+  onRuleRemove: PropTypes.func.isRequired,
   rules: PropTypes.array
 };
 
