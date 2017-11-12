@@ -27,7 +27,9 @@ class FlowEngineApp extends Component {
   }
 
   removeRule(rule) {
-    this.setState({rules : this.FlowStore.removeRule(rule)});
+    if (window.confirm('Are you sure?')) {
+      this.setState({rules : this.FlowStore.removeRule(rule)});
+    }
   }
 
   executeFlow(obj) {
