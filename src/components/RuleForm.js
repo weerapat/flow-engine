@@ -12,7 +12,7 @@ class RuleForm extends Component {
         true_id: '',
         false_id: ''
       },
-      formErrors: []
+      formErrors: {}
     };
   }
 
@@ -28,13 +28,40 @@ class RuleForm extends Component {
   };
 
   validateField(inputName, value) {
-    let errors = [];
-
-    console.log(`${inputName} + ${value}`);
+    let errors = this.state.formErrors;
 
     switch(inputName) {
       case 'title':
-        errors['title'] = (value) ? '' : 'Title is required';
+        errors.title = (value) ? '' : 'Title is required';
+        break;
+      case 'body':
+        errors.body = (value) ? '' : 'Body is required ';
+
+        try {
+          let fn = eval(`(${value})`);
+          if (typeof fn !== 'function') {
+            errors.body += 'Body should be a function';
+          } else {
+            errors.body = '';
+          }
+        }
+        catch (error) {
+            errors.body = `Body should be a function: ${error.message}`;
+        }
+        break;
+      case 'true_id':
+        if (!!value && !(!isNaN(parseFloat(value)) && isFinite(value))) {
+          errors.true_id = 'Id should be number';
+        } else {
+          errors.true_id = '';
+        }
+        break;
+      case 'false_id':
+        if (!!value && !(!isNaN(parseFloat(value)) && isFinite(value))) {
+          errors.false_id = 'Id should be number';
+        } else {
+          errors.false_id = '';
+        }
         break;
       default:
         break;
@@ -55,6 +82,17 @@ class RuleForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
+    for (const prop in this.state.fields) {
+      if (this.state.fields.hasOwnProperty(prop)) {
+        this.validateField(prop, this.state.fields[prop]);
+      }
+
+      if (this.state.formErrors[prop] !== "" && !!this.state.formErrors[prop]) {
+        return false;
+      }
+    }
+
     this.props.onFormSubmit(this.state.fields);
     this.clearForm();
   }
@@ -65,9 +103,6 @@ class RuleForm extends Component {
         <h2>Create flow</h2>
         <div className="App__panel">
         <div ></div>
-        {this.state.formErrors.map(error => (
-          <li>{error}</li>
-        ))}
         <form onSubmit={this.handleSubmit.bind(this)} >
           <div className="Form__group">
             <label htmlFor="rule-id">Rule id</label> : {this.props.nextRuleId}
@@ -83,6 +118,7 @@ class RuleForm extends Component {
               value={this.state.fields.title}
               onChange={this.handleInputChange.bind(this)}
             />
+            <span className="Text--error">{this.state.formErrors.title}</span>
           </div>
           <div className="Form__group">
             <label htmlFor="rule-body">Rule Body</label>
@@ -95,9 +131,10 @@ class RuleForm extends Component {
               value={this.state.fields.body}
               onChange={this.handleInputChange.bind(this)}
             />
+            <span className="Text--error">{this.state.formErrors.body}</span>
           </div>
           <div className="Form__group">
-            <label htmlFor="rule-title">If rule passed</label>
+            <label htmlFor="rule-passed">If rule passed</label>
             <input
               type="text"
               className="Form__control"
@@ -107,9 +144,10 @@ class RuleForm extends Component {
               value={this.state.fields.true_id}
               onChange={this.handleInputChange.bind(this)}
             />
+            <span className="Text--error">{this.state.formErrors.true_id}</span>
           </div>
           <div className="Form__group">
-            <label htmlFor="rule-title">If rule failed</label>
+            <label htmlFor="rule-failed">If rule failed</label>
             <input
               type="text"
               className="Form__control"
@@ -119,6 +157,7 @@ class RuleForm extends Component {
               value={this.state.fields.false_id}
               onChange={this.handleInputChange.bind(this)}
             />
+            <span className="Text--error">{this.state.formErrors.false_id}</span>
           </div>
 
           <button
