@@ -66,6 +66,7 @@ class FlowStore
 
     return this.store.rules;
   }
+
   executeObject(obj) {
     let rule = this.store.rules[0];
     let results = [{
@@ -88,4 +89,3 @@ class FlowStore
 }
 
 export default FlowStore;
-
