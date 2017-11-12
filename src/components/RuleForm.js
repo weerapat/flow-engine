@@ -52,6 +52,8 @@ class RuleForm extends Component {
       case 'true_id':
         if (!!value && !(!isNaN(parseFloat(value)) && isFinite(value))) {
           errors.true_id = 'Id should be number';
+        } else if (value == this.props.nextRuleId) {
+          errors.true_id = 'No, you can\'t assign number itself id';
         } else {
           errors.true_id = '';
         }
@@ -59,6 +61,8 @@ class RuleForm extends Component {
       case 'false_id':
         if (!!value && !(!isNaN(parseFloat(value)) && isFinite(value))) {
           errors.false_id = 'Id should be number';
+        } else if (value == this.props.nextRuleId) {
+          errors.false_id = 'No, you can\'t assign number itself id';
         } else {
           errors.false_id = '';
         }

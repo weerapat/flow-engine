@@ -71,6 +71,7 @@ class FlowStore
    */
   executeFlow(obj) {
     let rule = Object.assign({}, this.store.rules[0]);
+    let idsUsed = [rule.id]; // Protection infinite loop.
 
     // Convert Body string to function
     rule.body = eval(`(${rule.body})`);
@@ -81,6 +82,7 @@ class FlowStore
     }];
 
     let nextRuleId = rule.body(obj) ? rule.true_id : rule.false_id;
+    idsUsed.push(nextRuleId);
 
     while (nextRuleId !== null) {
       rule = Object.assign({}, this.getRuleById(nextRuleId));
@@ -92,6 +94,14 @@ class FlowStore
       });
 
       nextRuleId = rule.body(obj) ? rule.true_id : rule.false_id;
+
+      if (idsUsed.includes(nextRuleId)) {
+        results.push({
+          title: `Infinite loops issue please check this rule id = ${nextRuleId}`,
+          status: 'failed'
+        });
+        nextRuleId = null;
+      }
     }
 
     results.push({
