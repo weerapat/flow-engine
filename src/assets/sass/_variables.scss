@@ -1,8 +1,9 @@
 // Colors
 $gray-base:              #000 !default;
 $gray-darker:            lighten($gray-base, 13.5%) !default;
+$danger-color:           #da4343 !default;
 
-$base-shadow:           0 2px .5rem rgba(90,90,90,.3);
+$base-shadow:            0 2px .5rem rgba(90,90,90,.3);
 
 // Buttons
 $btn-font-weight:        normal !default;

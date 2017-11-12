@@ -1,26 +1,68 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class FlowExecute extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      objectErrorText: '',
-      objectToPass: {
-        color: 'red',
-        size: 12
-      },
-      results: []
+      error: '',
+      objectToExecute: {
+        color: 'blue',
+        size: 10
+      }
     };
+  }
+
+  handleObjectChange(e) {
+    try {
+      let value = JSON.parse(e.target.value);
+      this.setState({
+        objectToExecute: value,
+        error: ''
+      });
+    } catch(error) {
+      this.setState({
+        error: error.message
+      });
+    }
+  };
+
+  handleExecute(e) {
+    e.preventDefault();
+    this.props.onFlowExecute(this.state.objectToExecute);
   }
 
   render() {
     return (
       <div className="App__panel">
-        Hello FlowExecute
+        Execute Flow
+        <div className="Form__group">
+          <label htmlFor="rule-body">Rule Body</label>
+          <textarea
+            className="Form__control"
+            id="rule-body"
+            name="body"
+            rows="3"
+            placeholder="function (obj) { return !!obj; }"
+            onChange={this.handleObjectChange.bind(this)}
+            defaultValue={JSON.stringify(this.state.objectToExecute)}
+          />
+        </div>
+        <div className="Text--error">{this.state.error}</div>
+        <button onClick={this.handleExecute.bind(this)}>Execute Flow</button>
+        {
+          this.props.flowResults.map((result) => <div key={result.title}>
+            {result.title} <span>{result.status}</span>
+          </div>)
+        }
       </div>
     );
   }
 }
+
+FlowExecute.propTypes = {
+  onFlowExecute: PropTypes.func.isRequired
+};
 
 export default FlowExecute;

@@ -1,50 +1,43 @@
-// @Todo add doc block comments
-// Extract store layer if possible
+// @Todo Extract store layer if possible
 class FlowStore
 {
   constructor() {
     this.lastRuleId = 3;
-
-    /**
-     * @property
-     * @type {Array} store
-     */
-    this.store = {
-      nextRuleId : this.getNextRuleId(),
-      rules : [
-        {
-          id: 1,
-          title: 'Rule 1',
-          body: '',
-          true_id: 2,
-          false_id: 3
-        },
-        {
-          id: 2,
-          title: 'Rule 2',
-          body: '',
-          true_id: null,
-          false_id: null
-        },
-        {
-          id: 3,
-          title: 'Rule 3',
-          body: '',
-          true_id: null,
-          false_id: null
-        }
-      ]
-    };
+    this.store = this.initialStoreData();
   }
 
+  /**
+   * @returns {Array}
+   */
   getRules() {
     return this.store.rules;
   }
 
+  /**
+   * @param id
+   *
+   * @returns {*}
+   */
+  getRuleById(id) {
+    if (!id) {
+      return null;
+    }
+
+    return this.store.rules.filter((rule) => rule.id === Number(id))[0];
+  }
+
+  /**
+   * @returns {Number}
+   */
   getNextRuleId() {
     return this.lastRuleId + 1;
   }
 
+  /**
+   * @param rule
+   *
+   * @returns {Array}
+   */
   addRule(rule) {
     const newRule = {
       id: this.getNextRuleId(),
@@ -60,6 +53,11 @@ class FlowStore
     return this.store.rules;
   }
 
+  /**
+   * @param rule
+   *
+   * @returns {Array}
+   */
   removeRule(rule) {
     // @todo before delete check if this rule has relation with another rule first.
     this.store.rules.splice(this.store.rules.indexOf(rule), 1);
@@ -67,24 +65,81 @@ class FlowStore
     return this.store.rules;
   }
 
-  executeObject(obj) {
-    let rule = this.store.rules[0];
+  /**
+   * @param obj
+   *
+   * @returns {*[]}
+   */
+  executeFlow(obj) {
+    let rule = Object.assign({}, this.store.rules[0]);
+
+    // Convert Body string to function
+    rule.body = eval(`(${rule.body})`);
+
     let results = [{
       title: rule.title,
       status: rule.body(obj) ? 'passed' : 'failed'
     }];
-    let nextRule = rule.body(obj) ? rule.true_id : rule.false_id;
-    while (nextRule) {
+
+    let nextRuleId = rule.body(obj) ? rule.true_id : rule.false_id;
+
+    while (nextRuleId !== null) {
+      rule = Object.assign({}, this.getRuleById(nextRuleId));
+      rule.body = eval(`(${rule.body})`);
+
       results.push({
-        title: nextRule.title,
-        status: nextRule.body(obj) ? 'passed' : 'failed'
+        title: rule.title,
+        status: rule.body(obj) ? 'passed' : 'failed'
       });
-      nextRule = nextRule.body(obj) ? nextRule.true_id : nextRule.false_id;
+
+      nextRuleId = rule.body(obj) ? rule.true_id : rule.false_id;
     }
+
     results.push({
       title: 'End'
     });
+
     return results;
+  }
+
+  /**
+   * Use for increasing test and development speed
+   *
+   * @returns {{nextRuleId: *, rules: *[]}}
+   */
+  initialStoreData() {
+    return {
+      nextRuleId : this.getNextRuleId(),
+      rules : [
+        {
+          id: 1,
+          title: 'Rule 1',
+          body: `function (obj) {
+            return obj.color === 'blue' && obj.size === 10;
+          }`,
+          true_id: 2,
+          false_id: 3
+        },
+        {
+          id: 2,
+          title: 'Rule 2',
+          body: `function (obj) {
+            return obj.color === 'blue' && obj.size === 12;
+          }`,
+          true_id: null,
+          false_id: null
+        },
+        {
+          id: 3,
+          title: 'Rule 3',
+          body: `function (obj) {
+            return obj.color === 'yellow' && obj.size === 12;
+          }`,
+          true_id: null,
+          false_id: null
+        }
+      ]
+    };
   }
 }
 

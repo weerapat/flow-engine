@@ -12,7 +12,7 @@ class RuleForm extends Component {
         true_id: '',
         false_id: ''
       },
-      formErrors : {}
+      formErrors: []
     };
   }
 
@@ -28,15 +28,18 @@ class RuleForm extends Component {
   };
 
   validateField(inputName, value) {
-    let fieldValidationErrors = this.state.formErrors;
+    let errors = [];
 
     console.log(`${inputName} + ${value}`);
 
     switch(inputName) {
+      case 'title':
+        errors['title'] = (value) ? '' : 'Title is required';
+        break;
       default:
         break;
     }
-    this.setState({formErrors: fieldValidationErrors});
+    this.setState({formErrors: errors});
   }
 
   clearForm() {
@@ -59,6 +62,11 @@ class RuleForm extends Component {
   render() {
     return (
       <div className="App__panel">
+        <div ></div>
+        {this.state.formErrors.map(error => (
+          <li>{error}</li>
+        ))}
+
         <h2>Form</h2>
         <form onSubmit={this.handleSubmit.bind(this)} >
           <div className="Form__group">
@@ -83,6 +91,7 @@ class RuleForm extends Component {
               id="rule-body"
               name="body"
               rows="3"
+              placeholder="function (obj) { return !!obj; }"
               value={this.state.fields.body}
               onChange={this.handleInputChange.bind(this)}
             />

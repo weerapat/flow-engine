@@ -16,7 +16,8 @@ class FlowEngineApp extends Component {
       rules : this.FlowStore.getRules(),
       ruleErrors : {
         'message' : 'id is duplicated'
-      }
+      },
+      flowResults : []
     };
   }
 
@@ -27,6 +28,10 @@ class FlowEngineApp extends Component {
 
   removeRule(rule) {
     this.setState({rules : this.FlowStore.removeRule(rule)});
+  }
+
+  executeFlow(obj) {
+    this.setState({flowResults : this.FlowStore.executeFlow(obj)});
   }
 
   render() {
@@ -44,7 +49,10 @@ class FlowEngineApp extends Component {
             rules={this.state.rules}
             onRuleRemove={this.removeRule.bind(this)}
           />
-          <FlowExecute />
+          <FlowExecute
+            flowResults={this.state.flowResults}
+            onFlowExecute={this.executeFlow.bind(this)}
+          />
         </div>
       </div>
     );
