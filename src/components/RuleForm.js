@@ -61,13 +61,13 @@ class RuleForm extends Component {
 
   render() {
     return (
-      <div className="App__panel">
+      <div>
+        <h2>Create flow</h2>
+        <div className="App__panel">
         <div ></div>
         {this.state.formErrors.map(error => (
           <li>{error}</li>
         ))}
-
-        <h2>Form</h2>
         <form onSubmit={this.handleSubmit.bind(this)} >
           <div className="Form__group">
             <label htmlFor="rule-id">Rule id</label> : {this.props.nextRuleId}
@@ -127,6 +127,7 @@ class RuleForm extends Component {
           >Add new rule
           </button>
         </form>
+      </div>
       </div>
     );
   }

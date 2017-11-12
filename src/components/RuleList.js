@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 class RuleList extends Component {
   render() {
     return (
-      <div className="App__panel">
-        <ul>
+      <div>
+        <h2>List of rules</h2>
+        <div className="App__panel">
           {this.props.rules.map(rule => (
             <Rule key={rule.id} {...rule} onRemove={() => this.props.onRuleRemove(rule)} />
           ))}
-        </ul>
+        </div>
       </div>
     );
   }

@@ -35,27 +35,32 @@ class FlowExecute extends Component {
 
   render() {
     return (
-      <div className="App__panel">
-        Execute Flow
-        <div className="Form__group">
-          <label htmlFor="rule-body">Rule Body</label>
-          <textarea
-            className="Form__control"
-            id="rule-body"
-            name="body"
-            rows="3"
-            placeholder="function (obj) { return !!obj; }"
-            onChange={this.handleObjectChange.bind(this)}
-            defaultValue={JSON.stringify(this.state.objectToExecute)}
-          />
+      <div>
+        <h2>Execute Flow</h2>
+        <div className="App__panel">
+          <div className="Form__group">
+            <label htmlFor="rule-body">Rule Body</label>
+            <textarea
+              className="Form__control"
+              id="rule-body"
+              name="body"
+              rows="3"
+              placeholder="function (obj) { return !!obj; }"
+              onChange={this.handleObjectChange.bind(this)}
+              defaultValue={JSON.stringify(this.state.objectToExecute)}
+            />
+          </div>
+          <div className="Text--error">{this.state.error}</div>
+          <button onClick={this.handleExecute.bind(this)}>Execute Flow</button>
+          {
+            this.props.flowResults.map((result) => <div key={result.title}>
+              {result.title}&nbsp;&nbsp;
+              <span className={result.status === 'passed' ? 'Text--success' : 'Text--error'}>
+                {result.status}
+              </span>
+            </div>)
+          }
         </div>
-        <div className="Text--error">{this.state.error}</div>
-        <button onClick={this.handleExecute.bind(this)}>Execute Flow</button>
-        {
-          this.props.flowResults.map((result) => <div key={result.title}>
-            {result.title} <span>{result.status}</span>
-          </div>)
-        }
       </div>
     );
   }

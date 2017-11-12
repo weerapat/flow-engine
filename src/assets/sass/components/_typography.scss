@@ -2,6 +2,9 @@
 
 .Text {
   &--error {
-    color: $danger-color;
+    color: $color-danger;
+  }
+  &--success {
+    color: $color-success;
   }
 }
