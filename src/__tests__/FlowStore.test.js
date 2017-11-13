@@ -11,8 +11,8 @@ describe('Flow logic', () => {
     expect(flow.addRule({
       title: 'New rule',
       body: `function (obj) {
-            return obj.pet === 'boo' && obj.size === 2;
-          }`
+        return obj.pet === 'boo' && obj.size === 2;
+      }`
     })).toHaveLength(4);
   });
 
