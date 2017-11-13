@@ -8,7 +8,7 @@ class FlowExecute extends Component {
     this.state = {
       error: '',
       objectToExecute: {
-        color: 'blue',
+        pet: 'dog',
         size: 10
       }
     };
