@@ -21,8 +21,8 @@ describe('Flow logic', () => {
       id: 2,
       title: 'Rule 2',
       body: `function (obj) {
-            return obj.pet === 'cat' && obj.size === 12;
-          }`,
+        return obj.pet === 'cat' && obj.size === 12;
+      }`,
       true_id: null,
       false_id: 3
     })).toHaveLength(3);
