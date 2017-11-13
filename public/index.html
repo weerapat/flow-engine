@@ -37,5 +37,18 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD1Udlc59coAaRIfHuWUOQxB6AbMOXWYgI",
+            authDomain: "flow-engine-b8108.firebaseapp.com",
+            databaseURL: "https://flow-engine-b8108.firebaseio.com",
+            projectId: "flow-engine-b8108",
+            storageBucket: "flow-engine-b8108.appspot.com",
+            messagingSenderId: "397455689065"
+        };
+        firebase.initializeApp(config);
+    </script>
   </body>
 </html>

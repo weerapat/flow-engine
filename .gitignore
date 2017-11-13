@@ -9,6 +9,8 @@
 # production
 /build
 
+/src/App.css // Move src to src/assets/sass folder
+
 # misc
 .DS_Store
 .env.local
