@@ -7,7 +7,7 @@ describe('Flow logic', () => {
     expect(flow.store.rules).toHaveLength(3);
   });
 
-  test('test add new rule', () => {
+  test('add new rule', () => {
     expect(flow.addRule({
       title: 'New rule',
       body: `function (obj) {
@@ -16,7 +16,7 @@ describe('Flow logic', () => {
     })).toHaveLength(4);
   });
 
-  test('test remove rule', () => {
+  test('remove rule', () => {
     expect(flow.removeRule({
       id: 2,
       title: 'Rule 2',
@@ -28,7 +28,7 @@ describe('Flow logic', () => {
     })).toHaveLength(3);
   });
 
-  test('test flow execution', () => {
+  test('flow execution', () => {
     let results = flow.executeFlow({
       pet: 'dog',
       size: 10
