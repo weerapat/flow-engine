@@ -124,7 +124,7 @@ class FlowStore
           id: 1,
           title: 'Rule 1',
           body: `function (obj) {
-            return obj.color === 'blue' && obj.size === 10;
+            return obj.pet === 'dog' && obj.size === 10;
           }`,
           true_id: 2,
           false_id: 3
@@ -133,7 +133,7 @@ class FlowStore
           id: 2,
           title: 'Rule 2',
           body: `function (obj) {
-            return obj.color === 'blue' && obj.size === 12;
+            return obj.pet === 'cat' && obj.size === 12;
           }`,
           true_id: null,
           false_id: 3
@@ -142,7 +142,7 @@ class FlowStore
           id: 3,
           title: 'Rule 3',
           body: `function (obj) {
-            return obj.color === 'yellow' && obj.size === 12;
+            return obj.pet === 'snake' && obj.size === 12;
           }`,
           true_id: null,
           false_id: null
